@@ -22,7 +22,12 @@ export class BooksService {
   }
 
   findOne(id: number) {
-    return this.data.find(e => e.id === id);
+    const index = this.data.findIndex(e => e.id === id);
+    if (index === -1) return null;
+    const book: any = this.data[index];
+    if (this.data.length -1 > index) book.nextId = this.data[index+1].id;
+    else book.nextId = null;
+    return book;
   }
 
   update(id: number, updateBookDto: UpdateBookDto) {
